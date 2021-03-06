@@ -1,48 +1,30 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
 char stdin_line[BUFSIZ];
-char col_line[BUFSIZ];
 unsigned col;
 
-static void get_col() {
-	int count = 0;
-	char * c;
-	char * b = stdin_line;
+inline static void get_col() {
+	int count = 1;
+	char * c = stdin_line;
 
-	for (c = stdin_line; c < stdin_line + BUFSIZ && count < col; ++c) {
-		if (*c == ' ' || *c == '\t' || *c == '\n') {
-			while ((*c == ' ' || *c == '\t' || *c == '\n') && c < stdin_line + BUFSIZ) { ++c; }
-			--c;
+	for (;count != col && *c != '\n'; ++c) {
+		if (*c == ' ' || *c == '\t') {
 			++count;
-
-			if (count == col - 1)
-				b = c + 1;
+			for (;*c == ' ' || *c == '\t'; ++c);
+			--c;
 		}
 	}
 
-	if (count < col) {
-		col_line[0] = '\0';
-		return;
+	for (; *c != ' ' && *c != '\t' && *c !='\n'; ++c) {
+		putc(*c, stdout);
 	}
-
-	int i = 0;
-	for (; b < c; ++b) {
-		col_line[i] = *b;
-		++i;
-	}
-
-	if (col_line[i - 1] == '\n')
-		col_line[i - 1] = '\0';
-	else
-		col_line[i] = '\0';
+	putc('\n', stdout);
 }
 
-static void read_stdin() {
-	for (int i = 0; fgets(stdin_line, sizeof stdin_line, stdin); ++i) {
+inline static void read_stdin() {
+	while (fgets(stdin_line, sizeof stdin_line, stdin)) {
 		get_col();
-		printf("%s\n", col_line);
 	}
 }
 
