@@ -7,7 +7,7 @@ int n = 1;
 int main(int argc, char ** argv) {
 	if (argc == 2) {
 		separator = argv[1];
-	} else {
+	} else if (argc != 1) {
 		fprintf(stderr, "number [separator]\n");
 		return -1;
 	}
