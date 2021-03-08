@@ -6,6 +6,14 @@ Each is meant to solve one particular problem and nothing else.
 Every `.c` file under `tools` is a standalone tool.
 To add your own tools just add your C-File to the `tools` directory and it will be compiled.
 
+# Tools
+
+* gcol - Print nth column of stdin
+* columnify - Make table out of stdin with a given separator
+* number - Number lines of stdin
+* frequency - List words in order of their frequency
+* rtree - Find files recursive
+
 # Build
 
 To build every tool just type:
