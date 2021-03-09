@@ -58,8 +58,8 @@ int main(int argc, char ** argv) {
 		search_pattern = argv[2];
 		search(argv[1]);
 	} else {
-		fprintf(stderr, "rtree path [filename snipped]\n");
-		return -1;
+		search_pattern = "";
+		search(".");
 	}
 
 	return 0;
